@@ -1,0 +1,35 @@
+apply plugin: 'android-library'
+
+dependencies {
+    compile fileTree(dir: 'library/libs', include: '*.jar')
+    compile 'com.android.support:support-v4:+'
+}
+
+android {
+    compileSdkVersion 19
+    buildToolsVersion "19.0.0"
+
+    sourceSets {
+        main {
+            manifest.srcFile 'library/AndroidManifest.xml'
+            java.srcDirs = ['library/src']
+            resources.srcDirs = ['library/src']
+            aidl.srcDirs = ['library/src']
+            renderscript.srcDirs = ['library/src']
+            res.srcDirs = ['library/res']
+            assets.srcDirs = ['library/assets']
+        }
+
+        // Move the tests to tests/java, tests/res, etc...
+        instrumentTest.setRoot('tests')
+
+        // Move the build types to build-types/<type>
+        // For instance, build-types/debug/java, build-types/debug/AndroidManifest.xml, ...
+        // This moves them out of them default location under src/<type>/... which would
+        // conflict with src/ being used by the main source set.
+        // Adding new build types or product flavors should be accompanied
+        // by a similar customization.
+        debug.setRoot('build-types/debug')
+        release.setRoot('build-types/release')
+    }
+}
